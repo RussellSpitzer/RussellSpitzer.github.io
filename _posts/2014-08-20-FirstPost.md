@@ -17,7 +17,7 @@ interface. The site recommeneded jekyll so I installed that following their inst
 left me with a blank page that said `hello world` so I then found this [tutorial](https://www.andrewmunsell.com/tutorials/jekyll-by-example/tutorial)
 for Jekyll. 
 
-Unfortunately this tutorial is slightly out of date as it references to an older version of bootstrap
+Unfortunately this tutorial is slightly out of date as it references an older version of bootstrap
 but I was able to convert most of the code to work with bootstrap 3.2.0. I then implemented the blog template
 avalible on the [boostrap site](http://getbootstrap.com/examples/blog/) to work inside of my Jekyll framework. I split up the code into a nice rough
 draft and it's commited [here](https://github.com/RussellSpitzer/RussellSpitzer.github.io). Now I have a 
