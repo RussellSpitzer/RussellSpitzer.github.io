@@ -1,0 +1,13 @@
+name: "Russell Spitzer's Blog"
+description: "Some guy's blog"
+
+paginate: 10
+
+permalink: pretty
+
+url: "www.russellspitzer.com"
+
+
+markdown: rdiscount
+permalink: pretty
+pygments: true

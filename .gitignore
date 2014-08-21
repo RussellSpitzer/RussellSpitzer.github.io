@@ -1,0 +1,7 @@
+
+*.idea
+*.lock
+
+### Jekyll template
+_site/
+

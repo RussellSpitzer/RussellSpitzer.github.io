@@ -1,1 +1,17 @@
-Hello World
+---
+title: Russ Blog Home       
+layout: default        
+---
+
+        {% for post in paginator.posts %}
+        <div class="blog-post">
+            <h2 class="blog-post-title">{{ post.title }}</h2>
+            <p class="blog-post-meta">{{ post.date | date_to_long_string }}</p>
+              {{ post.excerpt }}
+            <p>
+              <a href="{{ post.url }}">Read Post</a>
+            </p>
+        </div>
+        {% endfor %}
+
+
