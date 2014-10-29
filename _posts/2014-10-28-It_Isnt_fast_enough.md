@@ -5,13 +5,13 @@ tags:
  - rant
  - performance
 ---
-
 ## It isn't fast enough
-
 I'm often confronted with people asking my why a certain technology or program isn't fast enough. This is
 a good question since we should always be interested in making things fast. But usually I hear these
 questions in response to a perceived slowness which is hard to define or can only be explained in terms
-of other technologies. This seems to happen a lot as various companies strive for a [lambda architecture](http://lambda-architecture.net/),
+of other technologies. 
+
+This seems to happen a lot as various companies strive for a [lambda architecture](http://lambda-architecture.net/),
 people want all the convenience of a traditional RDBMS with the the additional benefits of linear scaling,
 fault tolerance, consistency, speed,  etc ...
 
