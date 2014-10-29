@@ -4,7 +4,7 @@ layout: post
 tags:
  - rant
  - performance
---
+---
 
 ## It isn't fast enough
 
