@@ -12,6 +12,7 @@ I felt the need to write this post after I read the [blog post](http://blog.madh
 which did a great job at explaining how `fold` and `foldByKey` worked. The only thing I thought 
 was missing from this rundown was a bit of detail on how these operations work *differently* than 
 their scala counterparts.
+
 ---
 
 From the original api you might think that `fold` and `foldByKey` executed in Scala and
