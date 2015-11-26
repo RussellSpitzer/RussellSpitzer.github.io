@@ -7,12 +7,12 @@ tags:
  - Scala
 ---
 
-# Distributed Folds
-
+---
 I felt the need to write this post after I read the [blog post](http://blog.madhukaraphatak.com/spark-rdd-fold/)
 which did a great job at explaining how `fold` and `foldByKey` worked. The only thing I thought 
 was missing from this rundown was a bit of detail on how these operations work *differently* than 
 their scala counterparts.
+---
 
 From the original api you might think that `fold` and `foldByKey` executed in Scala and
 executed in a Spark Closure would act the same way and for most cases they do. Lets take a look
