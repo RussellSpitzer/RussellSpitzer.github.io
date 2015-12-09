@@ -14,6 +14,7 @@ We just fixed a [bug](https://datastax-oss.atlassian.net/browse/SPARKC-271)
  which was stopping `DataFrames` from being able to write into Cassandra UDTs. But I noticed there
  aren't a lot of great documents around how this works. Here is just a quick example on how you can
  make a dataframe which can insert into a C* UDT.
+ 
 ---
 
 First in CQLSH we need to make a table
