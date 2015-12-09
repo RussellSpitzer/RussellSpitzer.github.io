@@ -1,6 +1,7 @@
 ---
 title: Folding with Spark
 layout: post
+comments: True
 tags:
  - Fold
  - Spark
