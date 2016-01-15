@@ -11,9 +11,9 @@ tags:
 
 ---
 Most folks don't know that the Spark Cassandra Connector is actually able to connect to multiple
-C* clusters at the same time. This allows us to move data between C* clusters or even manage 
-multiple clusters from the same application (or even the spark shell)
- 
+Cassandra clusters at the same time. This allows us to move data between Cassandra clusters or 
+even manage  multiple clusters from the same application (or even the spark shell)
+
 ---
 
 Operations within the Spark Cassandra Connector are goverened by `CassandraConnector` objects.
