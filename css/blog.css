@@ -26,7 +26,10 @@ h6, .h6 {
 
 @media (min-width: 1200px) {
   .container {
-    width: 970px;
+    width: 90%;
+  }
+  .row {
+    width: 100%;
   }
 }
 
