@@ -3,11 +3,9 @@ description: "Some guy's blog"
 
 paginate: 10
 
-permalink: pretty
-
 url: "www.russellspitzer.com"
 
 
-markdown: rdiscount
+markdown: kramdown
 permalink: pretty
 pygments: true
