@@ -20,7 +20,7 @@ to multiple Clusters but the same thing can be done with Spark SQL.
 
 Here is the code for using pure RDDs 
 
-####Example of reading from one cluster and writing to another with RDDS
+#### Example of reading from one cluster and writing to another with RDDS
 
 ```scala
 import com.datastax.spark.connector._
@@ -48,10 +48,10 @@ def twoClusterExample ( sc: SparkContext) = {
 }
 ```
 
-####Example of reading from one cluster and writing to another with DataFrames
+#### Example of reading from one cluster and writing to another with DataFrames
+
 
 ```scala
-
 import com.datastax.spark.connector._
 import com.datastax.spark.connector.cql._
 
@@ -109,7 +109,7 @@ val dfFromClusterOne = sqlContext
   .options(Map( 
     "cluster" -> "ClusterOne",  // << The Cluster Config we will use to Read
     "keyspace" -> "ks",
-    "table" -> "tab
+    "table" -> "tab"
     ))
   .load
 ```
@@ -127,10 +127,9 @@ val dfFromClusterOne
   .options(Map( 
     "cluster" -> "ClusterTwo", // << The Cluster Config we use to Write
     "keyspace" -> "ks",
-    "table" -> "tab
+    "table" -> "tab"
     ))
   .save
-
 ```
 
 And we have successfully read from 127.0.0.1 and written to 127.0.0.2

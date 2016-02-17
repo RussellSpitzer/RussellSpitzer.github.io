@@ -41,7 +41,7 @@ Cuteness of Cat Pics*. The Driver will let the executors know about these resour
 pull the jar from Driver if necessarily, or some other source if specified (like `hdfs://` 
 or `spark-packages`.) These libraries will be placed on the App class-loader. 
 
-###Positives of this approach:
+### Positives of this approach:
 
 * Many Spark related libs are already available on the 
 [spark-packages website](http://spark-packages.org/package/datastax/spark-cassandra-connector).
@@ -49,7 +49,7 @@ ready to go
 * This makes it very clear what your dependencies are
 * It's very easy to try out switching deps
 
-###Negatives of this approach:
+### Negatives of this approach:
 
 * You need to have the jars available
 * Many files to manage rather than just one  
@@ -85,17 +85,17 @@ Fat Jar). This means nothing that starts with "spark" should be in your assembly
 happens to skip that lib.) If you do leave one of these libs in your jar, you will only suffer 
 sadness.
 
-###Positives of this approach:
+### Positives of this approach:
 * Only one jar to worry about and distribute
 * Never worry about wrong jars being referenced
 
-###Negatives of this approach:
+### Negatives of this approach:
 * Building a Fat Jar can be non-trivial
 * Locks your dependencies into your application code
 * Yet another component you need to learn  
 
 
-#TL;DR
+# TL;DR
 If at all possible don't make a Fat Jar, --jars and --packages should be simpler for most use cases.
 
 If you do build a Fat Jar

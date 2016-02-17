@@ -59,8 +59,8 @@ Within this example we make two different `CassandraConnector` objects. Each of 
 defaults set in the `SparkContext` but overrides the `spark.cassandra.connection.host` parameter. 
 
 ```scala
- val connectorToClusterOne = CassandraConnector(sc.getConf.set("spark.cassandra.connection.host", "127.0.0.1"))
- val connectorToClusterTwo = CassandraConnector(sc.getConf.set("spark.cassandra.connection.host", "127.0.0.2"))
+val connectorToClusterOne = CassandraConnector(sc.getConf.set("spark.cassandra.connection.host", "127.0.0.1"))
+val connectorToClusterTwo = CassandraConnector(sc.getConf.set("spark.cassandra.connection.host", "127.0.0.2"))
 ```
 
 At this point we haven't changed anything about the default connection configuration, any operations
@@ -68,11 +68,11 @@ will still use the default config. So to choose one of these to do something we 
 code block and declare it as the implicit `CassandraConnector` in that block
 
 ```scala
-  val rddFromClusterOne = {
-    // Sets connectorToClusterOne as default connection for everything in this code block
-    implicit val c = connectorToClusterOne
-    sc.cassandraTable("ks","tab")
-  }
+val rddFromClusterOne = {
+// Sets connectorToClusterOne as default connection for everything in this code block
+implicit val c = connectorToClusterOne
+sc.cassandraTable("ks","tab")
+}
 ```
 
 Within this block the `cassandraTable` call will use the implicit `CassandraConnector` c which is
@@ -80,11 +80,11 @@ Within this block the `cassandraTable` call will use the implicit `CassandraConn
 of what else we do elsewhere in the code.
 
 ```scala
-  {
-    //Sets connectorToClusterTwo as the default connection for everything in this code block
-    implicit val c = connectorToClusterTwo
-    rddFromClusterOne.saveToCassandra("ks","tab")
-  }
+{
+//Sets connectorToClusterTwo as the default connection for everything in this code block
+implicit val c = connectorToClusterTwo
+rddFromClusterOne.saveToCassandra("ks","tab")
+}
 ```
 
 The brackets here start our next code block. This allows us to specify a new implicit `CassandraConnector`

@@ -30,30 +30,32 @@ as long as no one Spark Partition is bigger than the driver heap.
 
 Example of Writing an RDD using `toLocalIterator`
 
-    scala> import java.io._
-    import java.io._
+```scala
+scala> import java.io._
+import java.io._
 
-    scala> val pw = new PrintWriter(new File("LocalText"))
-    pw: java.io.PrintWriter = java.io.PrintWriter@5879197
-    
-    scala> val rdd = sc.parallelize(1 to 100000).map( num => s"$num::Line")
+scala> val pw = new PrintWriter(new File("LocalText"))
+pw: java.io.PrintWriter = java.io.PrintWriter@5879197
 
-    scala> for (line <- rdd.toLocalIterator) { pw.println(line) }
+scala> val rdd = sc.parallelize(1 to 100000).map( num => s"$num::Line")
 
-    scala> pw.close
-    scala>:quit
+scala> for (line <- rdd.toLocalIterator) { pw.println(line) }
 
-    15:40:11 ➜  ~/SparkInstalls/spark-1.5.1-bin-hadoop1  tail LocalText
-    99991::Line
-    99992::Line
-    99993::Line
-    99994::Line
-    99995::Line
-    99996::Line
-    99997::Line
-    99998::Line
-    99999::Line
-    100000::Line
+scala> pw.close
+scala>:quit
+
+15:40:11 ➜  ~/SparkInstalls/spark-1.5.1-bin-hadoop1  tail LocalText
+99991::Line
+99992::Line
+99993::Line
+99994::Line
+99995::Line
+99996::Line
+99997::Line
+99998::Line
+99999::Line
+100000::Line
+```
 
 In the Application UI you'll notice that the toLocalIterator runs a {{Job}} on each Spark Partition 
 one at a time, rather than one single Job as in collect. 
