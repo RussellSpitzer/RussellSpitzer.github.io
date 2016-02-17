@@ -52,7 +52,8 @@ ready to go
 ###Negatives of this approach:
 
 * You need to have the jars available
-* Many files to manage rather than just one
+* Many files to manage rather than just one  
+
 
 ## Use sbt-assembly (or some other Fat Jar build tool)
 
@@ -91,7 +92,8 @@ sadness.
 ###Negatives of this approach:
 * Building a Fat Jar can be non-trivial
 * Locks your dependencies into your application code
-* Yet another component you need to learn
+* Yet another component you need to learn  
+
 
 #TL;DR
 If at all possible don't make a Fat Jar, --jars and --packages should be simpler for most use cases.
