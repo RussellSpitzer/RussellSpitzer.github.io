@@ -147,6 +147,12 @@ h6, .h6 {
 .blog-post {
   margin-bottom: 60px;
 }
+
+/* More Space Around Headings */
+.blog-post h1, .blog-post h2, .blog-post h3, .blog-post h4, .blog-post h5, .blog-post h6 {
+  margin-top: 40px;
+}
+
 .blog-post-title {
   margin-bottom: 5px;
   font-size: 40px;
