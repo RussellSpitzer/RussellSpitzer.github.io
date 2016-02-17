@@ -16,6 +16,8 @@ even manage  multiple clusters from the same application (or even the spark shel
 
 ---
 
+#### For SparkSQL Look [here]({% post_url 2016-2-16-Multiple-Clusters-SparkSql-Cassandra %})
+
 Operations within the Spark Cassandra Connector are goverened by `CassandraConnector` objects.
 The default `CassandraConnector` is created based on the parameters in your `SparkConfiguration` and
 the parameters passed on the command line of the form `spark.cassandra.*`. But this default `CassandraConnector`
