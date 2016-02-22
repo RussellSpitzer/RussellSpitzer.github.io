@@ -98,8 +98,8 @@ sqlContext.setConf("ClusterTwo/spark.cassandra.connection.host", "127.0.0.2")
 This will internally make two Cluster configurations, one for "ClusterOne" and one for "ClusterTwo".
 Each of these will make their own connection to their respective Clusters.
 
-Then we performing our `DataFrame` operations we need to specify which Cluster we are using. This is
-done via an Option which is passed to the read or write operation.
+Then when we are performing our `DataFrame` operations we need to specify which Cluster configuration each 
+ dataframe operation should use. This is done via an Option which is passed to the read or write operation.
 
 ```scala
 //Read from ClusterOne
@@ -115,8 +115,8 @@ val dfFromClusterOne = sqlContext
 ```
 
 The above code generates a DataFrame sourced from the first Cluster. The configuration for reading
-is not seen by other operations so we don't need to do any kind of code blocking here like we did
-in the RDD operation.
+is not seen by other dataframe operations. This is why there is no need to do any code-blocks
+ in the dataframe example.
 
 When writing we just specify the alternate Cluster
 
