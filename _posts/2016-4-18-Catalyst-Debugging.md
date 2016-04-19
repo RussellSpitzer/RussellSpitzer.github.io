@@ -39,9 +39,9 @@ And I'll insert a few junk rows
 
 This table is perfect for satisfying OLTP lookups for my Favorite Birthday gifts archive website 
 (although perhaps a bit heavy at a single partition a year). What's important is that we should 
-be able to within any year figure out whose birthdays fall within a range and then figure out
-their likes. For OLTP we are restricted by the `year` but with OLAP we should be able to search
-globally over all years and we should be able to *pushdown* and use the `birthday` clustering key.
+be able to determine the likes of any out whose birthdays fall within a year. With OLAP we should 
+be able to search globally over all years and we should be able to *pushdown* and use the 
+`birthday` clustering key.
 
 Too minimize the noise in the console we will set the log4j settings to WARN on the root logger
 and info for the connector.
@@ -92,10 +92,11 @@ Spark Filters []
 ```
 
 These empty brackets `[]` let us know there were no predicates that will be handled by spark
-or C*. So lets try adding one to find everyone with a birthday before January 1 2001;
+or C*. For a `select *` that makes sense, So lets try adding a predicate to find everyone with 
+a birthday before January 1 2001;
 
 ```sql
-spark-sql> select * from common where birthday < '1-1-2001';
+spark-sql> select * from common where birthday < '2001-1-1';
 16/04/18 17:16:14 INFO CassandraSourceRelation: Input Predicates: []
 16/04/18 17:16:14 DEBUG CassandraSourceRelation: Basic Rules Applied:
 C* Filters: []
@@ -113,7 +114,7 @@ Spark Filters []
 Time taken: 0.56 seconds                                                                                     
 ```
 
-Well that's odd, no predicates ... no results ... what's going on here? 
+Well that's odd, no predicates ... what's going on here? 
 Let's use `explain` to see what Spark's plan was for executing this query.
 
 ```sql
@@ -124,13 +125,17 @@ Time taken: 0.058 seconds, Fetched 3 row(s)
 ```
 
 The first line `Filter (cast(birthday#1 as string) < 2001-1-1)` tells a sad story. Catalyst took
-a look at this query and said '1-1-2001' looks like a string. I'll make birthday a string too! Then
-we can compare it lexically. Since it has to do a `cast` operation on the column, Catalyst won't
-even let C* know that there is a possible predicate here to compare with. So how do we let
-Spark a hint that the literal `2001-1-1` is a date and not just a random string? 
+a look at this query and said 
+    
+    '2001-1-1' looks like a string. I'll make birthday a string too! Then I can compare it lexically. 
+     Everyone will love me for making this great decision!" 
+     
+Since it has to  do a `cast` operation on the column, Catalyst won't even let 
+C* know that there is a possible  predicate here to compare with. So how do we let Spark a hint 
+that the literal `2001-1-1` is a date and not just a random string? 
 
-What we can do is `cast` the literal to a date! This will help let catalyst know to do the hard work
-just once on the literal and to treat the database data as is. The predicate is now passed to the 
+What we can do is `cast` the literal to a timestamp! This will help let catalyst know that it doesn't
+ have to do any casts on the database data. The predicate is now passed to the 
 source since Catalyst won't be trying to do any casts.
 
 ```sql
@@ -155,7 +160,8 @@ Time taken: 0.127 seconds, Fetched 2 row(s)
 ```
 
 We also see now that our C* Filters have a new entry showing we have correctly pushed down the
-timestamp directly to our Cassandra query.
+timestamp directly to our Cassandra query. We'll be saving time and avoiding any bad lexical 
+comparisons on timestamps :)
 
 
 
