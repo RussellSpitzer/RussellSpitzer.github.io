@@ -31,12 +31,11 @@ CREATE TABLE test.common (
 ```
 
 And I'll insert a few junk rows
-```sql
-year | birthday                 | userid                               | likes   | name
-------+--------------------------+--------------------------------------+---------+-------------------
-1985 | 1985-02-05 00:00:00+0000 | 74cc615c-05b9-11e6-b512-3e1d05defe78 |  soccer | Cristiano Ronaldo
-1980 | 1980-10-03 00:00:00+0000 | 74cc615c-05b9-11e6-b512-3e1d05defe79 | twitter |   Kim Kardashian
-```
+
+    year | birthday                 | userid                               | likes   | name
+    ------+--------------------------+--------------------------------------+---------+-------------------
+    1985 | 1985-02-05 00:00:00+0000 | 74cc615c-05b9-11e6-b512-3e1d05defe78 |  soccer | Cristiano Ronaldo
+    1980 | 1980-10-03 00:00:00+0000 | 74cc615c-05b9-11e6-b512-3e1d05defe79 | twitter |   Kim Kardashian
 
 This table is perfect for satisfying OLTP lookups for my Favorite Birthday gifts archive website 
 (although perhaps a bit heavy at a single partition a year). What's important is that we should 
