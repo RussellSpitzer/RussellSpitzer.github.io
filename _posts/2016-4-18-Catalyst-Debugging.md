@@ -128,15 +128,15 @@ The first line `Filter (cast(birthday#1 as string) < 2001-1-1)` tells a sad stor
 a look at this query and said 
     
     '2001-1-1' looks like a string. I'll make birthday a string too! Then I can compare it lexically. 
-     Everyone will love me for making this great decision!" 
+     Everyone will love me for making this great decision!
      
 Since it has to  do a `cast` operation on the column, Catalyst won't even let 
-C* know that there is a possible  predicate here to compare with. So how do we let Spark a hint 
+C* know that there is a possible  predicate here to compare with. So how do we let Spark know 
 that the literal `2001-1-1` is a date and not just a random string? 
 
 What we can do is `cast` the literal to a timestamp! This will help let catalyst know that it doesn't
  have to do any casts on the database data. The predicate is now passed to the 
-source since Catalyst won't be trying to do any casts.
+Cassandra and no extra filtering has to be done in C*.
 
 ```sql
 spark-sql> select * from common where birthday < cast('2001-1-1' as timestamp);
