@@ -137,7 +137,7 @@ eight. I ran this example on my MacBook which has 8 cores, setting the default p
 This made 8 partitions, which translates to 8 tasks. Each task dutifully counted the elements in it's list, 
 but then when those results were combined we ended up doing something that looked like
 
-##Folding Partition Results
+## Folding Partition Results
 
 ```scala
 // (acc, ele) => acc +1
@@ -155,7 +155,7 @@ Lets pretend for example we want to find the average of a list of numbers, first
 element to it's count (1) then use a single fold to both sum the elements and the counts at the
 same time.
 
-##Counting in a commutitive way
+## Counting in a commutative way
 
 ```scala
 scala> sc.parallelize(1 to 10)
