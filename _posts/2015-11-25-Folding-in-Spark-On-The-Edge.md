@@ -110,9 +110,10 @@ differ from that of a fold applied to a non-distributed collection.
 
 This lets us know that when Spark is doing the fold it's actually doing multiple folds in parallel
 one within each task. This means the number of tasks created will adjust our answer when we do a 
-non-commutitive operation like this particular count.
+non-commutative operation like this particular count.
 
 Here is an example:
+
 ```scala
 scala> sc.parallelize(1 to 10, 100).fold(0){ (acc,element) => acc +1}
 res15: Int = 100
@@ -138,7 +139,7 @@ but then when those results were combined we ended up doing something that looke
 
 ##Folding Partition Results
 
-```
+```scala
 // (acc, ele) => acc +1
 (0, totalFromPartition1) => 0 + 1 = 1
 (1, totalFromPartition2) => 1 + 1 = 2
