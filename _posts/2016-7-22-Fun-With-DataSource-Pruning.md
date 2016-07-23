@@ -88,6 +88,7 @@ I'm not sure if any other sources are configured this way but I imagine this cou
 other sources as well that don't know how to return empty rows.
 
 Ok so how do we get the sweet prune action from the DF api? Let's just use the count by column function!
+
 ```scala
 scala> import org.apache.spark.sql.functions._
 scala> df.select(count('v)).show
@@ -97,6 +98,10 @@ TungstenAggregate(key=[], functions=[(count(v#39),mode=Final,isDistinct=false)],
    +- TungstenAggregate(key=[], functions=[(count(v#39),mode=Partial,isDistinct=false)], output=[count#85L])
       +- Scan org.apache.spark.sql.cassandra.CassandraSourceRelation@6f5acac9[v#39]
 ```
+
 Our scan is once more happy and the pruned information goes all the way down to Cassandra! Until
 we have a way to push a direct COUNT(*) down to C* (Like in the RDD API see cassandraCount) this is
 probably as good as it gets.
+
+I'll continue to think on whether or not this is a bug we can fix or if it's just a techinical detail
+of the system...
