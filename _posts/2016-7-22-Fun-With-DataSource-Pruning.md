@@ -61,17 +61,16 @@ sqlContext.sql("SELECT count(v) FROM test.tab").show
 DEBUG ... SELECT "v" FROM "test"."tab" WHERE token("k") >= ? ...
 ```
 
-By counting the "v" is all we restore the optimal behavior. But why does count act so
-weird all by itself? Well this is the implementation of count in
+By only counting the column "v" we provide the hint that "v" is required for this query and
+restore the pruning behavior. But why does count act so weird all by itself? Well this is the
+implementation of count in
 DataFrame.scala
 
 ```scala
  groupBy().count()
 ```
 
-And `groupBy` takes columns as an argument. Which means this essentially means group on nothing
-and then count. This means all that precious information about only caring about "v" is gone! After
-all what's better than pruning down to one column. Pruning down to zero columns is the answer.
+So let's just run that directly on our Dataframe.
 
 ```scala
 scala> df.groupBy().count.explain
@@ -82,8 +81,14 @@ TungstenAggregate(key=[], functions=[(count(1),mode=Final,isDistinct=false)], ou
       +- Scan org.apache.spark.sql.cassandra.CassandraSourceRelation@5fa851ac[]
 ```
 
+
+`groupBy` takes columns as an argument. Which means this call is interpreted as group on nothing
+and then count. This means all that precious information about only caring about "v" is gone! After
+all what's better than pruning down to one column. Pruning down to zero columns is the answer.
+Catalyst erases the need for column "v" and the connector is left in a lurch.
+
 That poor lonely CassandraSourceRelation. Since no columns are listed there we don't know what to
-Select from C*. Nothing isn't really an option in C* so the default falls back to pulling everything!
+Select from C*. Nothing isn't really an option in C*, so the default falls back to pulling all columns!
 I'm not sure if any other sources are configured this way but I imagine this could be an issue for
 other sources as well that don't know how to return empty rows.
 
@@ -103,5 +108,5 @@ Our scan is once more happy and the pruned information goes all the way down to 
 we have a way to push a direct COUNT(*) down to C* (Like in the RDD API see cassandraCount) this is
 probably as good as it gets.
 
-I'll continue to think on whether or not this is a bug we can fix or if it's just a techinical detail
+I'll continue to think on whether or not this is a bug we can fix or if it's just a technical detail
 of the system...
