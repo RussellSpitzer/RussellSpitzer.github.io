@@ -78,7 +78,9 @@ are in this situation or the 0 write case.
 #### 2/3 Successful Writes of the Delete (Quorum CL Is Met)
 
 
-```A[Lock/], B[], C[]```
+```
+A[Lock/], B[], C[]
+```
  
  In this case we have once more lost the connection to the driver but 
  somehow succeeded internally in replicating the delete request. These 
