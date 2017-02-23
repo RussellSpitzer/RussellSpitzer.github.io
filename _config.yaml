@@ -1,8 +1,8 @@
-name: "Russell Spitzer's Blog"
-description: "Some guy's blog"
+name: Russell Spitzer's Blog
+description: Some guy's blog
 
-
-url: "www.russellspitzer.com"
+url: http://www.russellspitzer.com
+author: Russell Spitzer
 
 markdown: kramdown
 kramdown:
@@ -14,4 +14,4 @@ permalink: pretty
 
 paginate: 10
 
-gems: [jekyll-paginate, kramdown, rouge]
+gems: [jekyll-paginate, kramdown, rouge, jekyll-feed]
