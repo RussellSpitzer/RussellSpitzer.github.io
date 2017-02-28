@@ -27,27 +27,24 @@ TLDR; Just show me the code.
  * controlling resource usage easier.
  */
 object ThreadedConcurrentContext {
-  import java.util.concurrent.Executors
   import scala.util._
   import scala.concurrent._
-  import scala.concurrent.ExecutionContext.Implicits.global
   import scala.concurrent.duration.Duration
   import scala.concurrent.duration.Duration._
-
-  @transient lazy val ec = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(10))
+  import scala.concurrent.ExecutionContext.Implicits.global
 
   /** Wraps a code block in a Future and returns the future */
   def executeAsync[T](f: => T): Future[T] = {
-    Future(f)(ec)
+    Future(f)
   }
 
   /** Awaits only a set of elements at a time. Instead of waiting for the entire batch
     * to finish waits only for the head element before requesting the next future*/
   def awaitSliding[T](it: Iterator[Future[T]], batchSize: Int = 3, timeout: Duration = Inf): Iterator[T] = {
-    val slidingIterator = it.sliding(batchSize - 1) //Our look ahead will auto start the last future in the batch
+    val slidingIterator = it.sliding(batchSize - 1) //Our look ahead (hasNext) will auto start the nth future in the batch
     val (initIterator, tailIterator) = slidingIterator.span(_ => slidingIterator.hasNext)
     initIterator.map( futureBatch => Await.result(futureBatch.head, timeout)) ++
-    tailIterator.flatMap( lastBatch => Await.result(Future.sequence(lastBatch), timeout))
+      tailIterator.flatMap( lastBatch => Await.result(Future.sequence(lastBatch), timeout))
   }
 }
 ```
@@ -327,10 +324,8 @@ until each sub group until the previous group is completely done. What we really
  * controlling resource usage easier.
  */
 object ThreadedConcurrentContext {
-  import java.util.concurrent.Executors
   import scala.util._
   import scala.concurrent._
-  import scala.concurrent.ExecutionContext.Implicits.global
   import scala.concurrent.duration.Duration
   import scala.concurrent.duration.Duration._
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -375,6 +370,9 @@ we wait on the last sliding window for it to finish completely.
   slowFoo start (4)
   ...
 ```
+
+At this point you may want to consider switching out the Global Execution context which is used in 
+the example with a executor tailored to your use case, but for most things this should be sufficient.
   
 ## Concurrency with the Cassandra Java Driver
  
