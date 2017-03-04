@@ -3,7 +3,7 @@ description: Some guy's blog
 
 url: http://www.russellspitzer.com
 baseurl: ""
-scratch: /images/scratch/2.0_
+scratch: https://wiki.scratch.mit.edu/w/images/2.0_
 author: Russell Spitzer
 
 markdown: kramdown

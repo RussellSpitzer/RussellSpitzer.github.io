@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /w/
-
-Crawl-delay: 2
