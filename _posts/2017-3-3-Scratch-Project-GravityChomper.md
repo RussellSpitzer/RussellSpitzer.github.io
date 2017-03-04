@@ -88,17 +88,17 @@ The player is allowed to control Gravitica for 60 seconds until the game is
 over. This means we need to have a loop checking for the player's button 
 presses for 60 Seconds.
 
-Grab a ![When Green Flag CLicked]({{ site.scratch }}when_green_flag_clicked.png) block from the **Events** Category. This
+Grab a ![When Green Flag CLicked]({{ site.scratch }}When_Green_Flag_Clicked.png) block from the **Events** Category. This
 block is the start of your application. Everytime you click on the **Green Flag** this triggers 
-the start of the game and all the blocks under the ![When Green Flag CLicked]({{ site.scratch }}when_green_flag_clicked.png)
+the start of the game and all the blocks under the ![When Green Flag CLicked]({{ site.scratch }}When_Green_Flag_Clicked.png)
 block will go into action.
 
 ---
 
 ### Step 2.2 Event Loop
 
-Underneath the ![When Green Flag CLicked]({{ site.scratch }}when_green_flag_clicked.png) block place a 
-![Repeat Until]({{ site.scratch }}repeat_until_().png) block from the **Events** category. 
+Underneath the ![When Green Flag CLicked]({{ site.scratch }}When_Green_Flag_Clicked.png) block place a 
+![Repeat Until]({{ site.scratch }}Repeat_Until_().png) block from the **Events** category. 
 All of the blocks we place within this C shaped block will be executed
 until the block we place in the **<>** is true. 
 
@@ -111,7 +111,7 @@ Since the **<>** is a hexgon we need a hexagon block to fit inside it. We can fi
 hexagon blocks in the **Operators** category. Choose operators and grab a
  ![() < ()]({{ site.scratch }}()_is_Less_Than_().png) block. The **[]** is a place where we can either type in our own
  number or place a block. We want the condition to be false until the
- ![timer]({{ site.scratch}}timer.png) block from **Sensing** is greater than **60**
+ ![timer]({{ site.scratch}}Timer.png) block from **Sensing** is greater than **60**
  
 ![condition](/images/gravitychomper/gc_econd.png)
 
@@ -119,11 +119,11 @@ hexagon blocks in the **Operators** category. Choose operators and grab a
 
 ### Step 2.4 Controls
 
-Each of our player controls will be an ![if]({{ site.scratch}}if_().png) block 
+Each of our player controls will be an ![if]({{ site.scratch}}If_().png) block 
 from the **Control** category checking whether a key has been pressed using the 
- ![key pressed]({{ site.scratch}}key_()_pressed.png) block from the **Sensing** Category.
+ ![key pressed]({{ site.scratch}}Key_()_Pressed.png) block from the **Sensing** Category.
  
- Create an **if** block and place the ![key pressed]({{ site.scratch}}key_()_pressed.png) 
+ Create an **if** block and place the ![key pressed]({{ site.scratch}}Key_()_Pressed.png) 
  block inside it. Then 
  **Right Click** on the **if** Block and duplicate it 4 times.
  
@@ -133,31 +133,31 @@ from the **Control** category checking whether a key has been pressed using the
 
 Scratch uses the same coordinate system that you are probably used to
 from school. In this systems the vertical (down-up) position of an object 
-is determined by ![y]({{site.scratch}}y_position.png) and the horizontal 
-(left-right) is controlled by ![x]({{site.scratch}}x_position.png).
+is determined by ![y]({{site.scratch}}Y_Position.png) and the horizontal 
+(left-right) is controlled by ![x]({{site.scratch}}X_Position.png).
 
 For upwards movement we need to increase **y**. Change the 
-![key pressed]({{ site.scratch}}key_()_pressed.png) of the **first if** statement 
+![key pressed]({{ site.scratch}}Key_()_Pressed.png) of the **first if** statement 
 into sensing the **up arrow** by clicking on the **small black triangle** next to 
-the word **space**. Add a ![change y by]({{ site.scratch}}change_y_by_().png) 
+the word **space**. Add a ![change y by]({{ site.scratch}}Change_Y_by_().png) 
 block from the motion category to the if statement. Set the value inside to **5**.
 
 #### Down
 
 For downwards movement we need to decrease **y**. Change the **second if**
-statement to the **down arrow** and add a ![change y by]({{ site.scratch}}change_y_by_().png) 
+statement to the **down arrow** and add a ![change y by]({{ site.scratch}}Change_Y_by_().png) 
  block from the **Motion** category. Set the value to **-5**
 
 #### Left
 
 For leftwards movement we need to decrease **x**. Change the **third if**
-statement to the **down arrow** and add a  ![change x by]({{ site.scratch}}change_x_by_().png)  
+statement to the **down arrow** and add a  ![change x by]({{ site.scratch}}Change_X_by_().png)  
  block from the **Motion** category. Set the value to **-5**
 
 #### Right
 
 For rightwards movement we need to decrease **x**. Change the **fourth if**
-statement to the **down arrow** and add a  ![change x by]({{ site.scratch}}change_x_by_().png)  
+statement to the **down arrow** and add a  ![change x by]({{ site.scratch}}Change_X_by_().png)  
  block from the **Motion** category. Set the value to **5**
 
 ---
