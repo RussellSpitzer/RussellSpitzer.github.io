@@ -2,11 +2,14 @@ name: Russell Spitzer's Blog
 description: Some guy's blog
 
 url: http://www.russellspitzer.com
+baseurl: ""
+scratch: /images/scratch/2.0_
 author: Russell Spitzer
 
 markdown: kramdown
 kramdown:
   input: "GFM"
+  hard_wrap: false
   syntax_highlighter: rouge
 
 highlighter: rouge
