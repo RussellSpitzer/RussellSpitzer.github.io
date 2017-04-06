@@ -417,7 +417,7 @@ val resultSetRDD = rdd.mapPartitions{ it => connector.withSessionDo {
     // Setup the iterator to executeAsync our statements, returning ResultSetFutures
     val resultSetFutureIterator = boundStatementIterator.map(session.executeAsync)
     // Perform the sliding technique to queue only a set amount of records at a time
-    val slidingIterator = resultSetFutureIterator.sliding(10)
+    val slidingIterator = resultSetFutureIterator.sliding(batchSize - 1)
     val (initIterator, tailIterator) = slidingIterator.span(_ => slidingIterator.hasNext)
     initIterator.map(futureBatch => futureBatch.head.getUninterruptibly) ++
       tailIterator.flatMap(lastBatch => lastBatch.map(_.getUninterruptibly))
