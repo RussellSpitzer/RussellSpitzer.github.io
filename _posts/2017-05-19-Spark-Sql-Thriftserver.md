@@ -37,8 +37,8 @@ Bottom line: Spark Thrift Server is not related to the Cassandra Thrift Protocol
 ### A brief history of Hive and Spark
 
 This is a bit of a complicated history, basically a ship of Theseus story. We start with our original
-server which is almost completely Hive through and through and work are way replacing piece by piece until
-almost nothing of the original Hive code remains. 
+server which is almost completely Hive. Then, piece by piece, replacing hive until until almost 
+nothing of the original code remains. 
 
 Spark originally started out shipping with something called Shark and SharkServer. In those days there was 
 a lot of Hive code in the mix. SharkServer was Hive, it parsed Hive, it did optimizations in Hive, 
@@ -80,6 +80,10 @@ self-contained cluster complete with exclusive execution resources. This is an i
 multiple users to share the same pool of cluster resources. The Spark Thrift Server provides a 
 single context with a well defined protocol. This means external users can all send requests
 to have Spark work done without any Spark dependencies and fully utilize a cluster's resources. 
+
+Spark Contexts are also unable to share cached resources amongst each other. This means that unless
+you have a single Spark Context it is impossible for multiple users to share a cached table. The
+Spark Thrift server can be that single context, providing globally available cached data.
 
 Additionally the ThriftServer provides additional levels of Security by limiting the incoming jobs 
 that a user can run. Instead of being able to run generic JVM code, only SQL is allowed to to be 
