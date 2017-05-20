@@ -115,13 +115,13 @@ functions? Or should every user act independently?
 
 For example:
 
-Single Session: 
+#### Single Session: 
 ```
 User1 registers function and temporary views
 User(2,3,4,5) use those functions and views
 ```
 
-Multiple Session:
+#### Multiple Session:
 ```
 User 1 makes a private view of the data
 User 2 makes a private view of the data
