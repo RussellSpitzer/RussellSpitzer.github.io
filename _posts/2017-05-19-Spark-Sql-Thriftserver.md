@@ -112,7 +112,9 @@ Spark Application. There are two options most users should be aware of:
 
 [Docs](http://spark.apache.org/docs/latest/sql-programming-guide.html#upgrading-from-spark-sql-15-to-16)
 
-```spark.sql.hive.thriftServer.singleSession=false```
+```
+spark.sql.hive.thriftServer.singleSession=false
+```
 
 Multiple clients connecting to the JDBC Server can either share the same Session or not. This basically
 fits two different use-cases. Should users be able to access each other's configuration and registered 
@@ -121,12 +123,14 @@ functions? Or should every user act independently?
 For example:
 
 #### Single Session: 
+
 ```
 User1 registers function and temporary views
 User(2,3,4,5) use those functions and views
 ```
 
 #### Multiple Session:
+
 ```
 User 1 makes a private view of the data
 User 2 makes a private view of the data
@@ -137,7 +141,9 @@ This will *not* prevent users from editing the underlying sources
 
 ### "Mysterious OOMs and How to Avoid Them" or "Incremental Collect"
 
-```spark.sql.thriftServer.incrementalCollect=false```
+```
+spark.sql.thriftServer.incrementalCollect=false
+```
 
 This internal/mostly undocumented feature is necessary for Business Intelligence tools or other
 sources that request enormous result-sets through the ThriftServer. By default, `collect` is used as an
