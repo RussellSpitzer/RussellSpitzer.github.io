@@ -9,7 +9,7 @@ tags:
  
 ---
 
-Spark Sql ThriftServer is an excellent tool built on the HiveServer2 for allowing multiple remote 
+Spark (SQL) Thrift Server is an excellent tool built on the HiveServer2 for allowing multiple remote 
 clients to access Spark. It provides a generic JDBC endpoint that lets any client including BI tools
 connect and access the power of Spark. Let's talk about how it came to be and why you should use it.
 
@@ -53,7 +53,8 @@ Spark began replacing those various Hive-isms. Spark introduced a new representa
 [~~Dataframes~~](https://github.com/apache/spark/blob/branch-1.3/sql/core/src/main/scala/org/apache/spark/sql/DataFrame.scala) 
 [DataSets](https://github.com/apache/spark/blob/branch-2.0/sql/core/src/main/scala/org/apache/spark/sql/Dataset.scala) ... naming is hard. 
 And with that, a brand new Spark-native optimization engine known as [Catalyst](https://databricks.com/blog/2015/04/13/deep-dive-into-spark-sqls-catalyst-optimizer.html)! 
-The old Map/Reduce-style execution could be dropped, and instead, Spark-optimized execution plans
+Catalyst, a [Tree Manipulation Framework](https://jaceklaskowski.gitbooks.io/mastering-apache-spark/spark-sql-catalyst.html), provided a basis for the query optimization present in everything from GraphFrames to
+Structured Streaming. The advent of Catalyst meant that old Map/Reduce-style execution could be dropped, and instead, Spark-optimized execution plans
 could be built and run. In addition, Spark released a new API which lets us build Spark-Aware interfaces 
 called "DataSources" (like this [Cassandra one](https://github.com/datastax/spark-cassandra-connector/blob/master/spark-cassandra-connector/src/main/scala/org/apache/spark/sql/cassandra/CassandraSourceRelation.scala)).
 The flexibility of DataSources ended reliance on Hadoop Input Formats (although they are still supported).
@@ -65,12 +66,12 @@ as well as a bunch of Spark-specific extensions. (There was a short period in de
 had to pick between a 
 [`HiveContext`](https://github.com/apache/spark/blob/v1.6.3/sql/hive/src/main/scala/org/apache/spark/sql/hive/HiveContext.scala) 
 and [`SqlContext`](https://github.com/apache/spark/blob/v1.6.3/sql/core/src/main/scala/org/apache/spark/sql/SQLContext.scala) both of which had different parsers, but we don't talk about that anymore. 
-Today all requests go through a [`SparkSession`](https://github.com/apache/spark/blob/v2.1.1/sql/core/src/main/scala/org/apache/spark/sql/SparkSession.scala))
+Today all requests start with a [`SparkSession`](https://github.com/apache/spark/blob/v2.1.1/sql/core/src/main/scala/org/apache/spark/sql/SparkSession.scala)).
 Now there is almost no Hive left in Spark. While the Sql Thrift Server is still built on
 the [`HiveServer2`](https://github.com/apache/spark/blob/v2.1.1/sql/hive-thriftserver/src/main/scala/org/apache/spark/sql/hive/thriftserver/HiveThriftServer2.scala) code, 
 almost all of the internals are now completely Spark-native.
 
-## But why is the Spark Sql ThriftServer important?
+## But why is the Spark Sql Thrift Server important?
 
 I've written about this before; Spark Applications are 
 [Fat]({% post_url 2017-2-3-Spark-Applications-Are-Fat %}). Each application is a complete 
@@ -83,18 +84,18 @@ Spark Contexts are also unable to share cached resources amongst each other. Thi
 you have a single Spark Context, it is impossible for multiple users to share a cached data. The
 Spark Thrift server can be that "single context," providing globally-available cache.
 
-The ThriftServer can also benefit from [Fair Scheduling](https://spark.apache.org/docs/2.0.2/job-scheduling.html#fair-scheduler-pools). Fair
+The Thrift Server can also benefit from [Fair Scheduling](https://spark.apache.org/docs/latest/job-scheduling.html#fair-scheduler-pools). Fair
 Scheduling means that user requests do not have to be answered in a "First in, First out" manner.
 Instead, tasks from user queries can be interleaved. A long running query will not be able to 
  block a shorter query from completing.
 
-Additionally, the ThriftServer provides a greater level of Security by limiting the domain of jobs 
-that a user can run. The ThriftServer prohibits running generic JVM code. Only SQL can be 
+Additionally, the Thrift Server provides a greater level of Security by limiting the domain of jobs 
+that a user can run. The Thrift Server prohibits running generic JVM code. Only SQL can be 
 processed and executed.
 
-## How does the Spark Sql ThriftServer work?
+## How does the Spark Sql Thrift Server work?
 
-The modern ThriftServer is a relatively simple application. A single `SparkSession` is started, and 
+The modern Thrift Server is a relatively simple application. A single `SparkSession` is started, and 
 then on a loop it accepts new strings and executes them with a `.collect`. The results are recieved
 from the cluster and then delivered to the requester. You can see in the [code](https://github.com/apache/spark/blob/v2.1.1/sql/hive-thriftserver/src/main/scala/org/apache/spark/sql/hive/thriftserver/SparkExecuteStatementOperation.scala#L231-L246)
 that the basic execution is
@@ -146,17 +147,17 @@ spark.sql.thriftServer.incrementalCollect=false
 ```
 
 This internal/mostly undocumented feature is necessary for Business Intelligence tools or other
-sources that request enormous result-sets through the ThriftServer. By default, `collect` is used as an
+sources that request enormous result-sets through the Thrift Server. By default, `collect` is used as an
 operation to get the results from Spark before they are fed back through JDBC. `collect` pulls data-sets 
 completely into the driver's heap. This means that a JDBC request which returns a huge result-set will be 
-placed completely in the heap of the Spark Sql ThriftServer. This can lead to Out Of Memory Errors(OOMs),
-surprising users expecting the result-set to be paged through the ThriftServer small bits at a time. 
+placed completely in the heap of the Spark Sql Thrift Server. This can lead to Out Of Memory Errors(OOMs),
+surprising users expecting the result-set to be paged through the Thrift Server small bits at a time. 
 It is sometimes possible to avoid OOMs by increasing the `driver` heap size to fit the entire result-set,
 but it is also possible to do some manual paging and have the same effect.
 
 The setting `IncrementalCollect` changes the gather method from `collect` to `toLocalIterator`. 
 `toLocalIterator` is a Spark action which only returns one Spark Partition's worth of data at a time. 
-This can hurt performance but reduces the amount of RAM required on the ThriftServer heap -- from the 
+This can hurt performance but reduces the amount of RAM required on the Thrift Server heap -- from the 
 entire result set down to only a single partition.
 
 Remember that even with these considerations, if multiple users are making requests simultaneously each
@@ -166,7 +167,7 @@ to control the number of concurrent users to avoid OOMs.
 ### Want to Learn More?
 
 I hope this has been useful and please check out these additional blog posts for more information
-on the ThriftServer. 
+on the Thrift Server. 
 
 * [Jacek Laskowski's great reference manual for Spark](https://jaceklaskowski.gitbooks.io/mastering-apache-spark/content/spark-sql-thrift-server.html)
 * [DataStax Documentation on Spark Sql Thriftserver](http://docs.datastax.com/en/dse/5.1/dse-dev/datastax_enterprise/spark/sparkSqlThriftServer.html)
@@ -174,3 +175,10 @@ on the ThriftServer.
 * [The Raw Code itself](https://github.com/apache/spark/tree/master/sql/hive-thriftserver/src/main/scala/org/apache/spark/sql/hive/thriftserver)
 
 One whole post about Spark without talking about or using Monads. Oops ruined it.
+
+### Thanks for comments and notes
+
+Marguerite Sheffer
+Jaroslaw Grabowski
+Jacek Laskowski
+Brian Hess
