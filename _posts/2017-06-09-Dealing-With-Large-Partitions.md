@@ -33,7 +33,7 @@ Note that `compute` takes an argument of a single `partition`, this means that
 The `partition metadata` is also only made once before the work begins. These aspects
 are what make RDD's not only Immutable but also more or less deterministic. Each partition is
 independent of every other partition and this lets Spark spread work to any machine and even 
-recompute partitions without ill effects (most of the time[1]). 
+recompute partitions without ill effects (most of the time^1^). 
 
 One of the difficulties of writing a datasource RDD is determining how that partitioning will be 
 done. 
@@ -50,7 +50,7 @@ within Cassandra.
 
 Cassandra distributes data based on it's own [partitioner](http://docs.datastax.com/en/cassandra/3.0/cassandra/architecture/archPartitionerAbout.html) 
 which is separate from the Spark partitioning and Spark Partitioners. The partitioner takes 
-incoming data and uses a hash function (Murmur3-ish[2]) to map a piece of data to a 
+incoming data and uses a hash function (Murmur3-ish^2^) to map a piece of data to a 
 particular value. The mapped value is the Token and the range of all possible tokens is the
 Token Range. 
 Different nodes in the cluster will own (or be a replica) of particular portions of the token range.
@@ -63,7 +63,7 @@ The [Spark Cassandra](https://github.com/datastax/spark-cassandra-connector/blob
 connector makes Spark Partitions by taking the Token Range and dividing
 it into pieces based on the Ranges already owned by the nodes in the cluster. The number and 
 size of the Spark Partitions are based on metadata which is read from the Cassandra cluster. The 
-estimated data size[3] is used to build Spark Partitions containing the amount of data 
+estimated data size^3^ is used to build Spark Partitions containing the amount of data 
 specified by a user parameter `split_size_in_mb`. 
 
 For more information see this [visual guide](https://academy.datastax.com/resources/how-spark-cassandra-connector-reads-data)
@@ -163,13 +163,13 @@ step. This sort of column metadata could be useful even outside the realm of Cas
 operations as the data could be fed into the Catalyst cost-based optimizer. 
 
 
-[1]: It is possible for the compute method to be non-deterministic with respect to it's partition metadata. For example
+^1^: It is possible for the compute method to be non-deterministic with respect to it's partition metadata. For example
 a compute method could read data from a Database whose contents change. Computing the same partition at different times
 would yield different results. Another example would be a compute method could explicitly generate a random number
 with a seed that is not tied to the Partition metadata, this would also yield different results of the partition was
 recomputed.
 
-[2]: The actual implementation of the partitioner is one of three options: ByteOrdered which only 
+^2^: The actual implementation of the partitioner is one of three options: ByteOrdered which only 
 experts should use and most that do use it regret it; Random which is slightly larger and slower
 than Murmur3 and was the old default; and Murmur3 which is actually not a canonical (read slightly incorrect)
 implementation so its actually more like Murmur3-ish. The "ish" attribute is only important if
@@ -177,5 +177,5 @@ you are writing a new driver and want to get token range awareness right or you 
 mimic the behavior of the internal Cassandra partitioning for some other reason outside the
 helper functions provided by the common drivers.
 
-[3]: Estimated data size is a field populated in a system table within Cassandra. It provides a 
+^3^: Estimated data size is a field populated in a system table within Cassandra. It provides a 
 very rough estimate of the amount of data in a particular Token Range. 
