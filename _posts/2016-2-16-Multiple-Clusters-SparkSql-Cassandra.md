@@ -72,7 +72,7 @@ val dfFromClusterOne = sqlContext
   .load
   
 //Write to ClusterTwo
-val dfFromClusterOne
+dfFromClusterOne
   .write
   .format("org.apache.spark.sql.cassandra")
   .options(Map( 
