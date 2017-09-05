@@ -50,7 +50,7 @@ within Cassandra.
 
 Cassandra distributes data based on it's own [partitioner](http://docs.datastax.com/en/cassandra/3.0/cassandra/architecture/archPartitionerAbout.html) 
 which is separate from the Spark partitioning and Spark Partitioners. The partitioner takes 
-incoming data and uses a hash function (Murmur3-ish[^2]) to map a piece of data to a 
+incoming data and uses a hash function (Murmur3-ish [^2]) to map a piece of data to a 
 particular value. The mapped value is the Token and the range of all possible tokens is the
 Token Range. 
 Different nodes in the cluster will own (or be a replica) of particular portions of the token range.
