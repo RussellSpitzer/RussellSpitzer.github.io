@@ -86,9 +86,9 @@ once our co-located node `A` is saturated with tasks, our other machines `B` and
 for 3 seconds before tasks which could have been `NODE_LOCAL` are downgraded to `ANY`* and
 run [(code reference)](https://github.com/apache/spark/blob/823baca2cb8edb62885af547d3511c9e8923cefd/core/src/main/scala/org/apache/spark/scheduler/TaskSetManager.scala#L579-L585).
 
-\* If there is 'A' and 'C' were specified to be in the same rack, the locality would be downgraded to 
-`RACK_LOCAL`  first and run on 'C' instead. Once `C` was full it would wait another 3 seconds before
-doing the final downgrade to `ANY` and run on `B`.
+\* If 'A' and 'C' were specified to be in the same rack, the locality would be downgraded to 
+`RACK_LOCAL`  first and the task run on 'C' instead. Once `C` was full the task would wait another 3 
+seconds before doing the final downgrade to `ANY` and be run on `B`.
 
 
 ## Conclusion
