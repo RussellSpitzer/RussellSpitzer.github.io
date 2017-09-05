@@ -1,5 +1,5 @@
 ---
-title: Dealing with Large Spark Partitions
+title: How Spark Data Locality Works
 layout: post
 comments: True
 tags:
