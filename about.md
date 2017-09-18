@@ -21,6 +21,10 @@ familiar with various cloud vendors.
 * [Spark Cassandra Connector: Past, Present, Future](https://www.slideshare.net/RussellSpitzer/spark-cassandra-connector-past-present-and-future) : Cassandra Summit 2015
 * [Cassandra and Aeris: IoT Pains, Gains, and Automobiles](https://vimeo.com/129910857) : PubNub IoT Conference 2015 (w/ Drew Johnson)
 
+## Discussions
+
+* [Distributed Data Show: What's new in Apache Spark](https://www.youtube.com/watch?v=VqGHincAm78)
+
 ## My SlideShare (with even more talks but less actual talking)
 
 [Russell Spitzer on SlideShare](https://www.slideshare.net/RussellSpitzer)
