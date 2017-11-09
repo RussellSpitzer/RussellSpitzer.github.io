@@ -13,6 +13,7 @@ Hadoop, Spark, Solr and a bunch of open source technologies. I also am far too
 familiar with various cloud vendors.
 
 ## Some of The Talks I've Given
+* [A Tale of Two Graph Frameworks: Tinkerpop and GraphFrames](https://www.youtube.com/watch?v=DW09q18OHfc):Spark Summit Europe 2017
 * [Cassandra and SparkSQL: You Don't Need Functional Programming for Fun](https://www.youtube.com/watch?v=_qo-0cqRSjU): Spark Summit 2017
 * [Building your first Spark and Cassandra App](https://www.youtube.com/watch?v=g4RmAS9pZ2Q) : SFSpark Meetup 2016
 * [Spark and Cassandra: 2 Fast, 2 Furious](https://www.youtube.com/watch?v=a84-UOGZiEg) : Spark Summit 2016
