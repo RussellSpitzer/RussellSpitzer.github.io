@@ -1,5 +1,5 @@
 ---
-title: DSE Direct Join: Improving Catalyst Joins with Cassandra
+title: DSE Direct Join - Improving Catalyst Joins with Cassandra
 layout: post
 comments: True
 tags:
@@ -26,7 +26,7 @@ CREATE TABLE ks.test (
 ```
 
 and would like to pull out a small set of keys defined in a CSV. To do this we would use the DataFrame
-api and perform the following code.
+API and perform the following code.
 
 ```scala
 val keys = spark
