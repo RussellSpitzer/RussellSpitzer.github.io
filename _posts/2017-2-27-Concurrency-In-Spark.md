@@ -16,6 +16,28 @@ how you can control it.
 
 ---
 
+## EDIT
+
+We have found that this pattern is even better and are using it in the Spark Cassandra Connector
+
+```scala
+  /** Prefetches a batchSize of elements at a time **/
+  protected def slidingPrefetchIterator[T](it: Iterator[Future[T]], batchSize: Int): Iterator[T] = {
+    val (firstElements, lastElement) =  it
+      .grouped(batchSize)
+      .sliding(2)
+      .span(_ => it.hasNext)
+
+    (firstElements.map(_.head) ++ lastElement.flatten).flatten.map(_.get)
+  }
+```
+
+Which uses a similar pattern but insures we have even more futures in flight (based on batch size)
+
+---
+
+
+
 * Jump to [Cassandra](#concurrency-with-the-cassandra-java-driver) Specific code
 * Jump to [General Explanation](#concurrency-in-spark)
 
