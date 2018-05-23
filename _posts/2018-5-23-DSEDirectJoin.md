@@ -1,5 +1,5 @@
 ---
-title: DSE Direct Join - Improving Catalyst Joins with Cassandra
+title: DSE Direct Join Improving Catalyst Joins with Cassandra
 layout: post
 comments: True
 tags:
