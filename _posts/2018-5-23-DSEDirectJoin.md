@@ -62,7 +62,7 @@ made the correct decision.
 The following is from a RF=3 10 node cluster, 16 cores and 60GB of ram. The total Data set is 10B
 rows in 20 Million Cassandra Partitions.
 
-[!Direct Join scales Linearly with size of Request, Full Table Scan is More Expensive but constant cost](/images/directJoin.png "Direct Join Performance Test")
+![Direct Join scales Linearly with size of Request, Full Table Scan is More Expensive but constant cost](/images/DseDirectJoin/directJoin.png "Direct Join Performance Test")
 
 In this chart we can see that unlike the Full Table Scan, the direct join can efficiently retrieve small amounts of
 Cassandra Data. This does not even take into account the amount of time additionally required to shuffle
