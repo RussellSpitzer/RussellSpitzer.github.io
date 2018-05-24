@@ -68,6 +68,10 @@ In this chart we can see that unlike the Full Table Scan, the direct join can ef
 Cassandra Data. This does not even take into account the amount of time additionally required to shuffle
 the data and actually perform the join in the non-direct join scenario.
 
+Under the hood the direct join is using the joinWithCassandraTable function to do asynchronous 
+point requests. This path also circumvents the normal Spark Connector type conversion allowing it
+to get rows into Catalyst even faster than joinWithCassandraTable could do otherwise.  
+
 ## When the DSE Direct Join Is automatically applied
 
 A DirectJoin is substituted in for a Spark Join when the following conditions are met
@@ -85,7 +89,7 @@ The Ratio is defined as 0.9 by default but can be changed by setting the
 
 Direct joins can be set to always be used (regardless of size ratio) by setting
 directJoinSetting to "on". Setting the parameter to "off" will disable using the
-optimization even if the ratio is favorable. THe default "auto" checks the ratio
+optimization even if the ratio is favorable. The default "auto" checks the ratio
 before either applying or skipping the optimization.
 
 Programatically the decisions can be made on a per table basis using the
