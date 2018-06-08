@@ -5,6 +5,8 @@ title: Who is Russell Spitzer
 
 # About Russ
 
+![A photograph of a handsome man](/images/HeadShot.jpg)
+
 I got my Ph.D from UCSF in 2013 after performing a lot of
 comparisons of protein binding sites. Following that I joined DataStax
 to get more involved in the Big Data / Distributed Computing Scene. Currently
