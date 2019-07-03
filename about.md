@@ -15,6 +15,7 @@ Hadoop, Spark, Solr and a bunch of open source technologies. I also am far too
 familiar with various cloud vendors.
 
 ## Some of The Talks I've Given
+* [To Spark or Not To Spark](https://www.youtube.com/watch?v=2dEUB9Sxqs8&list=PLm-EPIkBI3YpJbuKUGDlZVNHzT0umcBSl&index=76&t=0s) : DataStax Accelerate 2019
 * [Applying custom rules to Spark's Catalyst Optimizer](https://www.youtube.com/watch?v=S98Flr4sxxc) : Scale By the Bay 2018
 * [Apply Hammer Directly to Thumb: Avoiding Spark & Cassandra Anti-patterns](https://vimeo.com/274951821):Spark Summit 2018
 * [A Tale of Two Graph Frameworks: Tinkerpop and GraphFrames](https://www.youtube.com/watch?v=DW09q18OHfc):Spark Summit Europe 2017
