@@ -7,14 +7,16 @@ title: Who is Russell Spitzer
 
 ![A photograph of a handsome man](/images/HeadShot.jpg)
 
-I got my Ph.D from UCSF in 2013 after performing a lot of
-comparisons of protein binding sites. Following that I joined DataStax
-to get more involved in the Big Data / Distributed Computing Scene. Currently
-I am spending the majority of my time developing the integration of Cassandra with
-Hadoop, Spark, Solr and a bunch of open source technologies. I also am far too
-familiar with various cloud vendors.
+Russell Spitzer received his Ph.D from UCSF in 2013 after performing a lot of
+comparisons of protein binding sites. Following that, he became deeply invested in distributed
+computing and involved in several Apache projects. While working at Datastax he became a key contributor 
+to the DataStax Spark-Cassandra Connector and also worked on both of those (and other) Apache projects. More recently he has been 
+involved with the Apache Iceberg project and has devoted most of his time to data file management and advancing the table format. 
+Currently Russell is a PMC member of the Apache Iceberg project.
 
 ## Some of The Talks I've Given
+* [Multi Dimensional Clustering with Z Ordering](https://www.youtube.com/watch?v=YLVkITvF6KU) : Scale By The Bay 2021
+* [DataSource V2 and Cassandra – A Whole New World](https://www.databricks.com/session_na20/datasource-v2-and-cassandra-a-whole-new-world) : Spark + AI Summit 2020
 * [To Spark or Not To Spark](https://www.youtube.com/watch?v=2dEUB9Sxqs8&list=PLm-EPIkBI3YpJbuKUGDlZVNHzT0umcBSl&index=76&t=0s) : DataStax Accelerate 2019
 * [Applying custom rules to Spark's Catalyst Optimizer](https://www.youtube.com/watch?v=S98Flr4sxxc) : Scale By the Bay 2018
 * [Apply Hammer Directly to Thumb: Avoiding Spark & Cassandra Anti-patterns](https://vimeo.com/274951821):Spark Summit 2018
